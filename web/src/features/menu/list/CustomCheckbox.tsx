@@ -6,12 +6,14 @@ const useStyles = createStyles((theme) => ({
     alignItems: 'center',
   },
   input: {
-    backgroundColor: theme.colors.dark[7],
-    '&:checked': { backgroundColor: theme.colors.dark[2], borderColor: theme.colors.dark[2] },
+    backgroundColor: 'rgb(0, 200, 0, 0.7)',
+    boxShadow: '0 0 5px rgba(0, 0, 0, 0.7)',
+    border: 'none',
+    '&:checked': { backgroundColor: 'rgb(0, 150, 0, 0.8)', borderColor: theme.colors.dark[2] },
   },
   inner: {
     '> svg > path': {
-      fill: theme.colors.dark[6],
+      fill: 'rgb(255, 255, 255)',
     },
   },
 }));

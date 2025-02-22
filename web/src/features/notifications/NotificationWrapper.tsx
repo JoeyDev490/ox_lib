@@ -1,99 +1,126 @@
 import { useNuiEvent } from '../../hooks/useNuiEvent';
 import { toast, Toaster } from 'react-hot-toast';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ReactMarkdown from 'react-markdown';
-import { Box, Center, createStyles, Group, keyframes, RingProgress, Stack, Text, ThemeIcon } from '@mantine/core';
-import React, { useState } from 'react';
-import tinycolor from 'tinycolor2';
+import { Avatar, createStyles, Group, Stack, Box, Text, keyframes, Sx } from '@mantine/core';
+import React from 'react';
 import type { NotificationProps } from '../../typings';
-import MarkdownComponents from '../../config/MarkdownComponents';
-import LibIcon from '../../components/LibIcon';
 
 const useStyles = createStyles((theme) => ({
   container: {
     width: 300,
     height: 'fit-content',
-    backgroundColor: theme.colors.dark[6],
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     color: theme.colors.dark[0],
     padding: 12,
+    borderRadius: '5px',
+    fontFamily: 'Poppins',
+    boxShadow: 'rgba(0, 0, 0, 0.6) 0px 5px 15px',
+  },
+  container2: {
+    width: 277,
+    height: 4,
     borderRadius: theme.radius.sm,
-    fontFamily: 'Roboto',
-    boxShadow: theme.shadows.sm,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    overflow: 'hidden',
+    marginTop: '0.8vh',
   },
   title: {
-    fontWeight: 500,
+    fontWeight: 600,
     lineHeight: 'normal',
   },
   description: {
     fontSize: 12,
-    color: theme.colors.dark[2],
-    fontFamily: 'Roboto',
+    color: 'rgb(255, 255, 255)',
+    fontFamily: 'Poppins',
     lineHeight: 'normal',
   },
   descriptionOnly: {
     fontSize: 14,
-    color: theme.colors.dark[2],
-    fontFamily: 'Roboto',
+    color: 'rgb(255, 255, 255)',
+    fontFamily: 'Poppins',
     lineHeight: 'normal',
+  },
+  bar: {
+    height: '100%',
+    backgroundColor: 'rgb(0, 200, 0)',
   },
 }));
 
-const createAnimation = (from: string, to: string, visible: boolean) => keyframes({
+// I hate this
+const enterAnimationTop = keyframes({
   from: {
-    opacity: visible ? 0 : 1,
-    transform: `translate${from}`,
+    opacity: 0,
+    transform: 'translateY(-30px)',
   },
   to: {
-    opacity: visible ? 1 : 0,
-    transform: `translate${to}`,
+    opacity: 1,
+    transform: 'translateY(0px)',
   },
 });
 
-const getAnimation = (visible: boolean, position: string) => {
-  const animationOptions = visible ? '0.2s ease-out forwards' : '0.4s ease-in forwards'
-  let animation: { from: string; to: string };
+const enterAnimationBottom = keyframes({
+  from: {
+    opacity: 0,
+    transform: 'translateY(30px)',
+  },
+  to: {
+    opacity: 1,
+    transform: 'translateY(0px)',
+  },
+});
 
-  if (visible) {
-    animation = position.includes('bottom') ? { from: 'Y(30px)', to: 'Y(0px)' } : { from: 'Y(-30px)', to:'Y(0px)' };
-  } else {
-    if (position.includes('right')) {
-      animation = { from: 'X(0px)', to: 'X(100%)' }
-    } else if (position.includes('left')) {
-      animation = { from: 'X(0px)', to: 'X(-100%)' };
-    } else if (position === 'top-center') {
-      animation = { from: 'Y(0px)', to: 'Y(-100%)' };
-    } else if (position === 'bottom') {
-      animation = { from: 'Y(0px)', to: 'Y(100%)' };
-    } else {
-      animation = { from: 'X(0px)', to: 'X(100%)' };
-    }
-  }
+const exitAnimationTop = keyframes({
+  from: {
+    opacity: 1,
+    transform: 'translateY(0px)',
+  },
+  to: {
+    opacity: 0,
+    transform: 'translateY(-100%)',
+  },
+});
 
-  return `${createAnimation(animation.from, animation.to, visible)} ${animationOptions}`
-};
+const exitAnimationRight = keyframes({
+  from: {
+    opacity: 1,
+    transform: 'translateX(0px)',
+  },
+  to: {
+    opacity: 0,
+    transform: 'translateX(100%)',
+  },
+});
 
-const durationCircle = keyframes({
-  '0%': { strokeDasharray: `0, ${15.1 * 2 * Math.PI}` },
-  '100%': { strokeDasharray: `${15.1 * 2 * Math.PI}, 0` },
+const exitAnimationLeft = keyframes({
+  from: {
+    opacity: 1,
+    transform: 'translateX(0px)',
+  },
+  to: {
+    opacity: 0,
+    transform: 'translateX(-100%)',
+  },
+});
+
+const exitAnimationBottom = keyframes({
+  from: {
+    opacity: 1,
+    transform: 'translateY(0px)',
+  },
+  to: {
+    opacity: 0,
+    transform: 'translateY(100%)',
+  },
 });
 
 const Notifications: React.FC = () => {
   const { classes } = useStyles();
-  const [toastKey, setToastKey] = useState(0);
 
   useNuiEvent<NotificationProps>('notify', (data) => {
     if (!data.title && !data.description) return;
-
-    const toastId = data.id?.toString();
-    const duration = data.duration || 3000;
-
-    let iconColor: string;
-    let position = data.position || 'top-right';
-
-    data.showDuration = data.showDuration !== undefined ? data.showDuration : true;
-
-    if (toastId) setToastKey(prevKey => prevKey + 1);
-
     // Backwards compat with old notifications
+    let position = data.position;
     switch (position) {
       case 'top':
         position = 'top-center';
@@ -102,7 +129,6 @@ const Notifications: React.FC = () => {
         position = 'bottom-center';
         break;
     }
-
     if (!data.icon) {
       switch (data.type) {
         case 'error':
@@ -119,31 +145,23 @@ const Notifications: React.FC = () => {
           break;
       }
     }
-
-    if (!data.iconColor) {
-      switch (data.type) {
-        case 'error':
-          iconColor = 'red.6';
-          break;
-        case 'success':
-          iconColor = 'teal.6';
-          break;
-        case 'warning':
-          iconColor = 'yellow.6';
-          break;
-        default:
-          iconColor = 'blue.6';
-          break;
-      }
-    } else {
-      iconColor = tinycolor(data.iconColor).toRgbString();
-    }
-    
     toast.custom(
       (t) => (
         <Box
           sx={{
-            animation: getAnimation(t.visible, position),
+            animation: t.visible
+              ? `${position?.includes('bottom') ? enterAnimationBottom : enterAnimationTop} 0.2s ease-out forwards`
+              : `${
+                  position?.includes('right')
+                    ? exitAnimationRight
+                    : position?.includes('left')
+                    ? exitAnimationLeft
+                    : position === 'top-center'
+                    ? exitAnimationTop
+                    : position
+                    ? exitAnimationBottom
+                    : exitAnimationRight
+                } 0.4s ease-in forwards`,
             ...data.style,
           }}
           className={`${classes.container}`}
@@ -151,66 +169,53 @@ const Notifications: React.FC = () => {
           <Group noWrap spacing={12}>
             {data.icon && (
               <>
-                {data.showDuration ? (
-                  <RingProgress
-                    key={toastKey}
-                    size={38}
-                    thickness={2}
-                    sections={[{ value: 100, color: iconColor }]}
-                    style={{ alignSelf: !data.alignIcon || data.alignIcon === 'center' ? 'center' : 'start' }}
-                    styles={{
-                      root: {
-                        '> svg > circle:nth-of-type(2)': {
-                          animation: `${durationCircle} linear forwards reverse`,
-                          animationDuration: `${duration}ms`,
-                        },
-                        margin: -3,
-                      },
-                    }}
-                    label={
-                      <Center>
-                        <ThemeIcon
-                          color={iconColor}
-                          radius="xl"
-                          size={32}
-                          variant={tinycolor(iconColor).getAlpha() < 0 ? undefined : 'light'}
-                        >
-                          <LibIcon icon={data.icon} fixedWidth color={iconColor} animation={data.iconAnimation} />
-                        </ThemeIcon>
-                      </Center>
+                {!data.iconColor ? (
+                  <Avatar
+                    color={
+                      data.type === 'error'
+                        ? 'red'
+                        : data.type === 'success'
+                        ? 'teal'
+                        : data.type === 'warning'
+                        ? 'yellow'
+                        : 'blue'
                     }
-                  />
-                ) : (
-                  <ThemeIcon
-                    color={iconColor}
                     radius="xl"
                     size={32}
-                    variant={tinycolor(iconColor).getAlpha() < 0 ? undefined : 'light'}
-                    style={{ alignSelf: !data.alignIcon || data.alignIcon === 'center' ? 'center' : 'start' }}
                   >
-                    <LibIcon icon={data.icon} fixedWidth color={iconColor} animation={data.iconAnimation} />
-                  </ThemeIcon>
+                    <FontAwesomeIcon icon={data.icon} fixedWidth size="lg" />
+                  </Avatar>
+                ) : (
+                  <FontAwesomeIcon icon={data.icon} style={{ color: data.iconColor }} fixedWidth size="lg" />
                 )}
               </>
             )}
             <Stack spacing={0}>
               {data.title && <Text className={classes.title}>{data.title}</Text>}
               {data.description && (
-                <ReactMarkdown
-                  components={MarkdownComponents}
-                  className={`${!data.title ? classes.descriptionOnly : classes.description} description`}
-                >
+                <ReactMarkdown className={`${!data.title ? classes.descriptionOnly : classes.description} description`}>
                   {data.description}
                 </ReactMarkdown>
               )}
             </Stack>
           </Group>
+
+          <Box className={classes.container2}>
+            <Box
+              className={classes.bar}
+              sx={{
+                animation: 'progress-bar linear',
+                animationDuration: `${data.duration || 3000}ms`,
+              }}
+            >
+            </Box>
+          </Box>
         </Box>
       ),
       {
-        id: toastId,
-        duration: duration,
-        position: position,
+        id: data.id?.toString(),
+        duration: data.duration || 3000,
+        position: position || 'top-right',
       }
     );
   });

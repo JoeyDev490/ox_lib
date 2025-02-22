@@ -28,7 +28,7 @@ const useStyles = createStyles((theme) => ({
       },
     },
     '> g > text': {
-      fill: theme.colors.dark[0],
+      // fill: theme.colors.dark[0],
       strokeWidth: 0,
     },
   },

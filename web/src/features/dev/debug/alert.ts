@@ -12,10 +12,10 @@ export const debugAlert = () => {
         size: 'lg',
         overflow: true,
         cancel: true,
-        // labels: {
-        //   confirm: 'Ok',
-        //   cancel: 'Not ok',
-        // },
+        labels: {
+          confirm: 'Ok',
+          cancel: 'Not ok',
+        },
       },
     },
   ]);

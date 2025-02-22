@@ -6,7 +6,7 @@ export const debugMenu = () => {
     {
       action: 'setMenu',
       data: {
-        //   position: "bottom-left",
+        position: "top-right",
         title: 'Vehicle garage',
         items: [
           { label: 'Option 1', icon: 'heart' },
@@ -33,7 +33,7 @@ export const debugMenu = () => {
             progress: 80,
             icon: 'car-side',
             description: 'Durability: 80%',
-            colorScheme: 'blue',
+            // colorScheme: 'blue',
             iconColor: '#55778d',
           },
           { label: 'Option 1' },

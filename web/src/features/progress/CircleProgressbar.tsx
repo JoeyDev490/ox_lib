@@ -23,7 +23,7 @@ const useStyles = createStyles((theme, params: { position: 'middle' | 'bottom'; 
   },
   progress: {
     '> svg > circle:nth-child(1)': {
-      stroke: theme.colors.dark[5],
+      stroke: 'rgba(0, 0, 0, 0.5)',
     },
     // Scuffed way of grabbing the first section and animating it
     '> svg > circle:nth-child(2)': {

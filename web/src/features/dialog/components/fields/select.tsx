@@ -2,7 +2,7 @@ import { MultiSelect, Select } from '@mantine/core';
 import { ISelect } from '../../../../typings';
 import { Control, useController } from 'react-hook-form';
 import { FormValues } from '../../InputDialog';
-import LibIcon from '../../../../components/LibIcon';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface Props {
   row: ISelect;
@@ -32,8 +32,7 @@ const SelectField: React.FC<Props> = (props) => {
           description={props.row.description}
           withAsterisk={props.row.required}
           clearable={props.row.clearable}
-          searchable={props.row.searchable}
-          icon={props.row.icon && <LibIcon icon={props.row.icon} fixedWidth />}
+          icon={props.row.icon && <FontAwesomeIcon icon={props.row.icon} fixedWidth />}
         />
       ) : (
         <>
@@ -50,9 +49,7 @@ const SelectField: React.FC<Props> = (props) => {
               description={props.row.description}
               withAsterisk={props.row.required}
               clearable={props.row.clearable}
-              searchable={props.row.searchable}
-              maxSelectedValues={props.row.maxSelectedValues}
-              icon={props.row.icon && <LibIcon icon={props.row.icon} fixedWidth />}
+              icon={props.row.icon && <FontAwesomeIcon icon={props.row.icon} fixedWidth />}
             />
           )}
         </>

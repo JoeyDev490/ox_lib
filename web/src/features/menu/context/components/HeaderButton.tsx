@@ -18,6 +18,11 @@ const useStyles = createStyles((theme, params: { canClose?: boolean }) => ({
     textAlign: 'center',
     justifyContent: 'center',
     padding: 2,
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    '&:hover': {
+      backgroundColor: params.canClose === false ? 'rgba(0, 0, 0, 0.6)' : 'rgba(0, 200, 0, 0.6)',
+      cursor: params.canClose === false ? 'unset' : 'pointer',    
+    }
   },
   root: {
     border: 'none',

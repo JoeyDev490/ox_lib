@@ -21,15 +21,16 @@ const useStyles = createStyles((theme, params: { disabled?: boolean; readOnly?: 
   },
   label: {
     width: '100%',
-    color: params.disabled ? theme.colors.dark[3] : theme.colors.dark[0],
+    color: 'rgba(255, 255, 255, 1)',
     whiteSpace: 'pre-wrap',
   },
   button: {
     height: 'fit-content',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
     width: '100%',
     padding: 10,
     '&:hover': {
-      backgroundColor: params.readOnly ? theme.colors.dark[6] : undefined,
+      backgroundColor: 'rgba(0, 200, 0, 0.6)',
       cursor: params.readOnly ? 'unset' : 'pointer',
     },
     '&:active': {
@@ -40,12 +41,13 @@ const useStyles = createStyles((theme, params: { disabled?: boolean; readOnly?: 
     maxWidth: '25px',
   },
   description: {
-    color: params.disabled ? theme.colors.dark[3] : theme.colors.dark[2],
+    color: 'rgba(255, 255, 255, 1)',
     fontSize: 12,
   },
   dropdown: {
     padding: 10,
-    color: theme.colors.dark[0],
+    color: 'rgba(255, 255, 255, 1)',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
     fontSize: 14,
     maxWidth: 256,
     width: 'fit-content',
@@ -133,7 +135,11 @@ const ContextButton: React.FC<{
                   </Text>
                 )}
                 {button.progress !== undefined && (
-                  <Progress value={button.progress} size="sm" color={button.colorScheme || 'dark.3'} />
+                  <Progress
+                                value={button.progress}
+                                color={button.colorScheme || 'rgb(0, 200, 0)'}
+                                styles={(theme) => ({ root: { backgroundColor: 'rgb(0, 0, 0, 0.5)' } })}
+                              />
                 )}
               </Stack>
               {(button.menu || button.arrow) && button.arrow !== false && (

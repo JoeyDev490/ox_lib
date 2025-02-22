@@ -30,10 +30,10 @@ const useStyles = createStyles((theme) => ({
   titleContainer: {
     borderRadius: 4,
     flex: '1 85%',
-    backgroundColor: theme.colors.dark[6],
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
   },
   titleText: {
-    color: theme.colors.dark[0],
+    color: 'rgba(255, 255, 255, 1)',
     padding: 6,
     textAlign: 'center',
   },
@@ -96,7 +96,7 @@ const ContextMenu: React.FC = () => {
               <ReactMarkdown components={MarkdownComponents}>{contextMenu.title}</ReactMarkdown>
             </Text>
           </Box>
-          <HeaderButton icon="xmark" canClose={contextMenu.canClose} iconSize={18} handleClick={closeContext} />
+          <HeaderButton icon="xmark" canClose={contextMenu.canClose} iconSize={18} handleClick={closeContext}/>
         </Flex>
         <Box className={classes.buttonsContainer}>
           <Stack className={classes.buttonsFlexWrapper}>
