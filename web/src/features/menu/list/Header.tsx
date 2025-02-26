@@ -3,7 +3,7 @@ import React from 'react';
 
 const useStyles = createStyles(() => ({
   container: {
-    position: 'relative', // enables absolute positioning for child elements
+    position: 'relative',
     textAlign: 'center',
     borderTopLeftRadius: '5px',
     borderTopRightRadius: '5px',
@@ -14,21 +14,21 @@ const useStyles = createStyles(() => ({
     justifyContent: 'center',
     alignItems: 'center',
     color: 'rgb(255, 255, 255)',
-    overflow: 'hidden', // ensure child elements don't overflow the container
+    overflow: 'hidden', 
   },
   image: {
     position: 'absolute',
     top: '50%',
     left: '50%',
-    width: '96%', // slightly smaller than container width
-    height: '90%', // slightly smaller than container height
+    width: '96%',
+    height: '90%', 
     objectFit: 'cover',
-    transform: 'translate(-50%, -50%)', // center the image
+    transform: 'translate(-50%, -50%)',
     borderRadius: '5px',
-    zIndex: 1, // sits behind the text
+    zIndex: 1,
   },
   heading: {
-    position: 'relative', // establishes a stacking context above the image
+    position: 'relative',
     zIndex: 2,
     fontSize: 24,
     textTransform: 'uppercase',

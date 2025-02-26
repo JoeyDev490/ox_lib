@@ -7,6 +7,7 @@ import FocusTrap from 'focus-trap-react';
 import { fetchNui } from '../../../utils/fetchNui';
 import type { MenuPosition, MenuSettings } from '../../../typings';
 import LibIcon from '../../../components/LibIcon';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const useStyles = createStyles((theme, params: { position?: MenuPosition; itemCount: number; selected: number }) => ({
   tooltip: {
@@ -182,7 +183,7 @@ const ListMenu: React.FC = () => {
     if (!data.startItemIndex || data.startItemIndex < 0) data.startItemIndex = 0;
     else if (data.startItemIndex >= data.items.length) data.startItemIndex = data.items.length - 1;
     setSelected(data.startItemIndex);
-    if (!data.position) data.position = 'top-left';
+    if (!data.position) data.position = 'bottom-left';
     listRefs.current = [];
     setMenu(data);
     setVisible(true);

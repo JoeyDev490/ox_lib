@@ -214,7 +214,7 @@ const Notifications: React.FC = () => {
       ),
       {
         id: data.id?.toString(),
-        duration: data.duration || 3000,
+        duration: 3000,
         position: position || 'top-right',
       }
     );

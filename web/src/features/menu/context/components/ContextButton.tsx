@@ -30,7 +30,7 @@ const useStyles = createStyles((theme, params: { disabled?: boolean; readOnly?: 
     width: '100%',
     padding: 10,
     '&:hover': {
-      backgroundColor: 'rgba(0, 200, 0, 0.6)',
+      backgroundColor: 'rgba(0, 200, 0, 0.4)',
       cursor: params.readOnly ? 'unset' : 'pointer',
     },
     '&:active': {
@@ -62,10 +62,12 @@ const useStyles = createStyles((theme, params: { disabled?: boolean; readOnly?: 
     flexWrap: 'nowrap',
   },
   buttonIconContainer: {
-    width: 25,
+    width: 28,
     height: 25,
     justifyContent: 'center',
     alignItems: 'center',
+    borderRadius: 3,
+    backgroundColor: 'rgba(0, 200, 0, 0.6)',
   },
   buttonTitleText: {
     overflowWrap: 'break-word',
