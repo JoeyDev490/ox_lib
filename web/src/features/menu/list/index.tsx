@@ -1,4 +1,4 @@
-import { Box, createStyles, Stack, Tooltip } from '@mantine/core';
+import { Box, Center, createStyles, Stack, Tooltip } from '@mantine/core';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useNuiEvent } from '../../../hooks/useNuiEvent';
 import ListItem from './ListItem';
@@ -11,10 +11,12 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 const useStyles = createStyles((theme, params: { position?: MenuPosition; itemCount: number; selected: number }) => ({
   tooltip: {
+    textAlign: 'center',
     backgroundColor: 'rgb(0, 0, 0, 0.7)',
     color: 'rgb(255, 255, 255)',
     borderRadius: '5px',
-    maxWidth: 350,
+    maxWidth: 600,
+    minWidth: 383,
     whiteSpace: 'normal',
   },
   container: {
@@ -48,7 +50,7 @@ const useStyles = createStyles((theme, params: { position?: MenuPosition; itemCo
     height: 25,
   },
   scrollArrowIcon: {
-    color: theme.colors.dark[2],
+    color: 'white',
     fontSize: 20,
   },
 }));

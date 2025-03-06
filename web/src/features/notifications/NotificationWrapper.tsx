@@ -43,7 +43,7 @@ const useStyles = createStyles((theme) => ({
   },
   bar: {
     height: '100%',
-    backgroundColor: 'rgb(0, 200, 0)',
+    backgroundColor: 'rgb(200, 0, 0)',
   },
 }));
 

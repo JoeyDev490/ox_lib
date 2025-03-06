@@ -13,7 +13,9 @@ const useStyles = createStyles(() => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    color: 'rgb(255, 255, 255)',
+    color: 'rgb(255, 0, 0)',
+    fontWeight: 500,
+    fontFamily: 'Poppins',
     overflow: 'hidden', 
   },
   image: {
@@ -41,7 +43,7 @@ const Header: React.FC<{ title: string }> = ({ title }) => {
 
   return (
     <Box className={classes.container}>
-      <img src="https://media.discordapp.net/attachments/1130545314890260553/1314363873318408333/1920x1080_All_Purpose_Banner_-_Atomic_RP.png?ex=67bafdff&is=67b9ac7f&hm=4a8e4b492c69f4a3c94fd216eba9d15b5ca70e364b3a58ee4edfabe614bcc991&=&format=webp&quality=lossless&width=1433&height=806" alt="header" className={classes.image} />
+      <img src="https://r2.fivemanage.com/eJuQaZlWXYvPBKVnrGAQq/images/Banner1.png" alt="header" className={classes.image} />
       <Text className={classes.heading}>{title}</Text>
     </Box>
   );

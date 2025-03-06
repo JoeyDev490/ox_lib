@@ -30,7 +30,7 @@ const useStyles = createStyles((theme, params: { disabled?: boolean; readOnly?: 
     width: '100%',
     padding: 10,
     '&:hover': {
-      backgroundColor: 'rgba(0, 200, 0, 0.4)',
+      backgroundColor: 'rgba(200, 0, 0, 0.4)',
       cursor: params.readOnly ? 'unset' : 'pointer',
     },
     '&:active': {
@@ -67,7 +67,7 @@ const useStyles = createStyles((theme, params: { disabled?: boolean; readOnly?: 
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 3,
-    backgroundColor: 'rgba(0, 200, 0, 0.6)',
+    backgroundColor: 'rgba(200, 0, 0, 0.6)',
   },
   buttonTitleText: {
     overflowWrap: 'break-word',
@@ -139,7 +139,7 @@ const ContextButton: React.FC<{
                 {button.progress !== undefined && (
                   <Progress
                                 value={button.progress}
-                                color={button.colorScheme || 'rgb(0, 200, 0)'}
+                                color={button.colorScheme || 'rgb(200, 0, 0)'}
                                 styles={(theme) => ({ root: { backgroundColor: 'rgb(0, 0, 0, 0.5)' } })}
                               />
                 )}

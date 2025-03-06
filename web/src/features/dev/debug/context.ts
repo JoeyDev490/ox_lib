@@ -25,7 +25,7 @@ export const debugContext = () => {
                 ['label']: 'Engine',
                 ['value']: '100%',
                 ['progress']: 100,
-                colorScheme: 'green',
+                colorScheme: 'red',
               },
               {
                 ['label']: 'Oil',
